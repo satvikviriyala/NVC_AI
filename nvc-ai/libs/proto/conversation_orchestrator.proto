@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package nvc.v1;
+
+message TurnRequest {
+  string user_id = 1;
+  string text = 2;
+}
+
+message TurnResponse {
+  string ai_message = 1;
+}
+
+service ConversationOrchestratorService {
+  rpc ProcessTurn(TurnRequest) returns (TurnResponse) {}
+}
