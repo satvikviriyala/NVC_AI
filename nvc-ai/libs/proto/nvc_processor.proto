@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package nvc.v1;
+
+message NVCProcessRequest {
+  string text = 1;
+}
+
+message NVCProcessResponse {
+  string observation = 1;
+  repeated string feelings = 2;
+  repeated string needs = 3;
+  repeated string requests = 4;
+  repeated string judgments = 5;
+  string rewrite_nonjudgmental = 6;
+}
+
+service NVCProcessorService {
+  rpc Process(NVCProcessRequest) returns (NVCProcessResponse) {}
+}
