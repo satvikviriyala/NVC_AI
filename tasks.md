@@ -16,11 +16,8 @@
         2.  Inside `nvc-ai`, create the following empty directories: `apps`, `services`, `serving`, `data`, `models`, `pipelines`, `infra`, `libs`, `tests`, `docs`, `scripts`.
 
 *   **Task 2: Initialize Version Control**
-    *   **Goal:** Set up a Git repository and a basic `.gitignore` file.
-    *   **Action:**
-        1.  In the `nvc-ai` root, run `git init`.
-        2.  Create a file named `.gitignore` in the root.
-        3.  Add the following content to `.gitignore`: `__pycache__/`, `*.pyc`, `.env`, `*.db`, `data/raw/*`, `models/checkpoints/*`.
+    *   **Goal:** ignore this step
+    *   
 
 *   **Task 3: Create Core NVC Taxonomy Data**
     *   **Goal:** Define the canonical lists of feelings and needs.
