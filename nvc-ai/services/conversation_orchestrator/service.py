@@ -19,9 +19,9 @@ from empathy_generator_pb2_grpc import EmpathyGeneratorServiceStub
 class ConversationOrchestratorService(ConversationOrchestratorServiceServicer):
     def __init__(self):
         # Create gRPC channels to other services
-        self.nvc_processor_channel = grpc.insecure_channel('localhost:50051')
-        self.prompt_service_channel = grpc.insecure_channel('localhost:50053')
-        self.empathy_generator_channel = grpc.insecure_channel('localhost:50054')
+        self.nvc_processor_channel = grpc.insecure_channel('nvc_processor:50051')
+        self.prompt_service_channel = grpc.insecure_channel('prompt_service:50053')
+        self.empathy_generator_channel = grpc.insecure_channel('empathy_generator:50054')
 
         # Create gRPC stubs
         self.nvc_processor_stub = NVCProcessorServiceStub(self.nvc_processor_channel)

@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   ollama:
     image: ollama/ollama
@@ -6,6 +7,69 @@ services:
       - ollama_data:/root/.ollama
     ports:
       - "11434:11434"
+
+  nvc_processor:
+    build:
+      context: ../../
+      dockerfile: services/nvc_processor/Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - GRPC_VERBOSITY=DEBUG
+
+  emotion_analyzer:
+    build:
+      context: ../../
+      dockerfile: services/emotion_analyzer/Dockerfile
+    ports:
+      - "50052:50052"
+    environment:
+      - GRPC_VERBOSITY=DEBUG
+
+  prompt_service:
+    build:
+      context: ../../
+      dockerfile: services/prompt_service/Dockerfile
+    ports:
+      - "50053:50053"
+    environment:
+      - GRPC_VERBOSITY=DEBUG
+
+  empathy_generator:
+    build:
+      context: ../../
+      dockerfile: services/empathy_generator/Dockerfile
+    ports:
+      - "50054:50054"
+    environment:
+      - OLLAMA_API_URL=http://ollama:11434
+      - GRPC_VERBOSITY=DEBUG
+    depends_on:
+      - ollama
+
+  conversation_orchestrator:
+    build:
+      context: ../../
+      dockerfile: services/conversation_orchestrator/Dockerfile
+    ports:
+      - "50055:50055"
+    environment:
+      - GRPC_VERBOSITY=DEBUG
+    depends_on:
+      - nvc_processor
+      - prompt_service
+      - empathy_generator
+
+  api_gateway:
+    build:
+      context: ../../
+      dockerfile: services/api_gateway/Dockerfile
+    ports:
+      - "8080:8000"
+    environment:
+      - GRPC_VERBOSITY=DEBUG
+    depends_on:
+      - conversation_orchestrator
 
 volumes:
   ollama_data:
